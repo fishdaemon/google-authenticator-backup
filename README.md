@@ -1,7 +1,11 @@
 # google-authenticator-backup
 Bash script that create new QR codes images from android google authenticator app
 
-The script is only tried on ubuntu.
+It needs the following software to be installed and in your $PATH sqlite3, adb , qrencode and optionally xdg-open
+
+Your phone needs to be rooted, and you need to enable USB debugging
+
+The script is only tried on ubuntu 1504
 
 The script uses mktemp -d in /var/run/lock  if tmpfs is mounted there. 
 
