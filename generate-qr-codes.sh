@@ -40,8 +40,12 @@ trap "'clean_up' 'a general error on line ${LINENO}'"  ERR
 mount | grep /run/lock | grep tmpfs || tmpfs_fail
 
 out=$(mktemp -d /run/lock/XXXXXXX)
-adb root 
-adb pull /data/data/com.google.android.apps.authenticator2/databases/databases $out/db
+#adb root 
+adb shell su -c 'cp /data/data/com.google.android.apps.authenticator2/databases/databases /sdcard/dbtmp'
+adb shell su -c 'chmod 0666 /sdcard/dbtmp'
+#adb pull /data/data/com.google.android.apps.authenticator2/databases/databases $out/db
+adb pull /sdcard/dbtmp $out/db
+adb shell rm /sdcard/dbtmp
 for a in $(sqlite3  $out/db "select original_name,secret from accounts")
 do 
 	echo "otpauth://totp/"$(echo $a | cut -f1 -d'|')"?secret="$(echo $a | cut -f2 -d'|') | qrencode -o $out/$(echo $a | cut -f1 -d'|')".png"

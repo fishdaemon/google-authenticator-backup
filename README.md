@@ -13,3 +13,5 @@ It will download the sqlite DB from your phone to the temp dir and create png fi
 The db contains the secret,  thats why it only wants to write to tmpfs, although encrypted drive would be safe as well. 
 
 if the script is aborted, completed or fails the rm -rfi will run on the tmpdir
+
+Since adb root command did not work on my latest build i had to copy the db to /sdcard chmod and then delete
